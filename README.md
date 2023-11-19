@@ -117,11 +117,11 @@ Notice that some elements produced by `maxGraph` require to use [CSS and images]
 
 To start from scratch make sure to install all dependencies
 
-`npm install vite typescript`
+```npm install vite typescript @maxgraph/core```
 
 Create a new project with 
 
-`npm create vite@latest`
+```npm create vite@latest```
 
 Give your project a name, select Vanilla as framework and use typescript
 
@@ -135,7 +135,6 @@ Make sure to install all dependencies of the project
 ``` powershell
 cd maxgraph
 npm install
-npm run dev
 ```
 
 Chanhg the `main.ts` file to 
@@ -275,7 +274,7 @@ NodeJS requirements:
 In the project root directory, execute
 
 ```sh
-$ npm install
+npm install
 ```
 
 In the `packages/core` folder, execute
@@ -287,7 +286,7 @@ npm pack
 To watch the core package, execute (in the project root directory)
 
 ```sh
-$ npm run dev
+npm run dev
 ```
 
 and select `@maxgraph/core`.
@@ -295,7 +294,7 @@ and select `@maxgraph/core`.
 To run the html(vanilla-js) version of [Storybook](https://storybook.js.org/), execute (in the project root directory)
 
 ```sh
-$ npm run dev
+npm run dev
 ```
 
 and select `@maxgraph/html`.
