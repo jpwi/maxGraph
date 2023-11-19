@@ -56,7 +56,7 @@ pnpm
 pnpm add @maxgraph/core
 ```
 
-## Getting Started
+## Integration
 
 Assuming your page defines an element with the id `graph-container`, the following will display a rectangle connected to an orange circle.
 ```typescript
@@ -112,6 +112,97 @@ You will see something like in the following _maxGraph panning_ demo:
 For more details, have a look at the [storybook stories](packages/html/stories).
 
 Notice that some elements produced by `maxGraph` require to use [CSS and images](./packages/docs/css-and-images.md) provided in the npm package.
+
+## Getting Started
+
+To start from scratch make sure to install all dependencies
+
+```npm install vite typescript @maxgraph/core```
+
+Create a new project with 
+
+```npm create vite@latest```
+
+Give your project a name, select Vanilla as framework and use typescript
+
+``` powershell
+√ Project name: ... maxgraph
+√ Select a framework: » Vanilla
+√ Select a variant: » TypeScript
+```
+Make sure to install all dependencies of the project
+
+``` powershell
+cd maxgraph
+npm install
+```
+
+Chanhg the `main.ts` file to 
+``` typescript
+import { Graph, InternalEvent } from '@maxgraph/core';
+const container = document.getElementById('graph-container');
+// Disables the built-in context menu
+InternalEvent.disableContextMenu(container);
+const graph = new Graph(container);
+graph.setPanning(true); // Use mouse right button for panning
+// Gets the default parent for inserting new cells. This
+// is normally the first child of the root (ie. layer 0).
+const parent = graph.getDefaultParent();
+// Adds cells to the model in a single step
+graph.batchUpdate(() => {
+    const vertex01 = graph.insertVertex({
+        parent,
+        position: [10, 10],
+        size: [100, 100],
+        value: 'rectangle',
+    });
+    const vertex02 = graph.insertVertex({
+        parent,
+        position: [350, 90],
+        size: [50, 50],
+        style: {
+            fillColor: 'orange',
+            shape: 'ellipse',
+            verticalAlign: 'top',
+            verticalLabelPosition: 'bottom',
+        },
+        value: 'ellipse',
+    });
+    graph.insertEdge({
+        parent,
+        source: vertex01,
+        target: vertex02,
+        value: 'edge',
+        style: {
+            edgeStyle: 'orthogonalEdgeStyle',
+            rounded: true,
+        },
+    });
+});
+```
+
+Change the `index.html` to
+
+``` html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="graph-container"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+
+```
+
+Now run the code by `npm run dev`, the website will be available at [http://localhost:5173/](http://localhost:5173/)
+
+
 
 
 ## TypeScript support
@@ -183,7 +274,7 @@ NodeJS requirements:
 In the project root directory, execute
 
 ```sh
-$ npm install
+npm install
 ```
 
 In the `packages/core` folder, execute
@@ -195,7 +286,7 @@ npm pack
 To watch the core package, execute (in the project root directory)
 
 ```sh
-$ npm run dev
+npm run dev
 ```
 
 and select `@maxgraph/core`.
@@ -203,7 +294,7 @@ and select `@maxgraph/core`.
 To run the html(vanilla-js) version of [Storybook](https://storybook.js.org/), execute (in the project root directory)
 
 ```sh
-$ npm run dev
+npm run dev
 ```
 
 and select `@maxgraph/html`.
